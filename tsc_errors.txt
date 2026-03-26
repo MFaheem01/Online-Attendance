@@ -1,0 +1,22 @@
+﻿app/api/admin/attendance/route.ts(11,41): error TS2571: Object is of type 'unknown'.
+app/api/admin/employees/route.ts(9,35): error TS2571: Object is of type 'unknown'.
+app/api/attendance/get/route.ts(34,24): error TS2571: Object is of type 'unknown'.
+app/api/auth/login/route.ts(30,10): error TS18046: 'employee' is of type 'unknown'.
+app/api/auth/login/route.ts(37,58): error TS18046: 'employee' is of type 'unknown'.
+app/api/auth/login/route.ts(46,43): error TS18046: 'employee' is of type 'unknown'.
+app/api/auth/login/route.ts(49,44): error TS18046: 'employee' is of type 'unknown'.
+app/api/auth/me/route.ts(32,13): error TS18046: 'employee' is of type 'unknown'.
+app/api/auth/me/route.ts(33,15): error TS18046: 'employee' is of type 'unknown'.
+app/api/auth/me/route.ts(34,16): error TS18046: 'employee' is of type 'unknown'.
+app/api/auth/me/route.ts(35,15): error TS18046: 'employee' is of type 'unknown'.
+app/api/cron/check-absence/route.ts(36,39): error TS18046: 'emp' is of type 'unknown'.
+app/api/cron/check-absence/route.ts(36,50): error TS18046: 'emp' is of type 'unknown'.
+app/api/cron/check-absence/route.ts(39,50): error TS18046: 'emp' is of type 'unknown'.
+lib/auth.ts(2,22): error TS7016: Could not find a declaration file for module 'bcryptjs'. 'C:/Users/mf722/Downloads/urdu-chat/node_modules/bcryptjs/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/bcryptjs` if it exists or add a new declaration (.d.ts) file containing `declare module 'bcryptjs';`
+lib/auth.ts(98,11): error TS2571: Object is of type 'unknown'.
+lib/auth.ts(99,14): error TS2571: Object is of type 'unknown'.
+lib/auth.ts(100,13): error TS2571: Object is of type 'unknown'.
+lib/auth.ts(101,13): error TS2571: Object is of type 'unknown'.
+lib/db.ts(21,24): error TS2344: Type 'T' does not satisfy the constraint 'QueryResultRow'.
+lib/db.ts(23,21): error TS2344: Type 'T' does not satisfy the constraint 'QueryResultRow'.
