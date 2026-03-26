@@ -1,31 +1,27 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 
-export default function VerifyPage() {
+function VerifyForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get('email') || '';
   const [code, setCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [timeLeft, setTimeLeft] = useState(900); // 15 minutes
+  const [timeLeft, setTimeLeft] = useState(900);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          return 0;
-        }
+        if (prev <= 1) { clearInterval(interval); return 0; }
         return prev - 1;
       });
     }, 1000);
-
     return () => clearInterval(interval);
   }, []);
 
@@ -36,22 +32,14 @@ export default function VerifyPage() {
     e.preventDefault();
     setLoading(true);
     setError('');
-
     try {
       const response = await fetch('/api/auth/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, code }),
       });
-
       const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.error || 'Verification failed');
-        return;
-      }
-
-      // Redirect to login
+      if (!response.ok) { setError(data.error || 'Verification failed'); return; }
       router.push('/auth/login');
     } catch (err) {
       setError('An error occurred. Please try again.');
@@ -66,13 +54,11 @@ export default function VerifyPage() {
         <div className="p-8">
           <h1 className="text-3xl font-bold text-slate-900 mb-2">Verify Email</h1>
           <p className="text-slate-600 mb-6">Enter the 6-digit code sent to {email}</p>
-
           {error && (
             <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
               {error}
             </div>
           )}
-
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
@@ -87,11 +73,9 @@ export default function VerifyPage() {
                 required
               />
             </div>
-
             <div className="text-sm text-slate-600">
               Code expires in: <span className="font-bold">{minutes}:{seconds.toString().padStart(2, '0')}</span>
             </div>
-
             <Button
               type="submit"
               disabled={loading || timeLeft === 0}
@@ -103,5 +87,17 @@ export default function VerifyPage() {
         </div>
       </Card>
     </main>
+  );
+}
+
+export default function VerifyPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-slate-600">Loading...</p>
+      </div>
+    }>
+      <VerifyForm />
+    </Suspense>
   );
 }
