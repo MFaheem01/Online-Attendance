@@ -1,4 +1,5 @@
-import { Pool, QueryResult, QueryResultRow } from 'pg';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Pool } from 'pg';
 
 const connectionString = process.env.DATABASE_URL || '';
 
@@ -15,10 +16,11 @@ function getPool(): Pool {
 
 export { getPool };
 
-export async function query<T extends QueryResultRow = any>(
+export async function query<T = any>(
   text: string,
   params?: any[]
-): Promise<QueryResult<T>> {
+): Promise<{ rows: T[] }> {
   const pool = getPool();
-  return pool.query<T>(text, params);
+  const result = await (pool as any).query(text, params);
+  return result as { rows: T[] };
 }
